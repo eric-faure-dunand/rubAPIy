@@ -1,3 +1,9 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  namespace :api do
+    namespace :v1 do
+      resources :teams, only: [:index, :show, :create]
+      resources :player, only: [:index, :show, :create]
+      post 'player/:name', to: "player#change_team"
+    end
+  end
 end
