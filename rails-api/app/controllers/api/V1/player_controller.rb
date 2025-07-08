@@ -39,7 +39,11 @@ class Api::V1::PlayerController < ApplicationController
     elsif !new_team && param[1] != nil
       render json: {error: 'Team introuvable'}, status: :not_found
     else
-      player.update(team_id: new_team::id)
+      if new_team.nil?
+        player.update(team_id: nil)
+      else
+        player.update(team_id: new_team::id)
+      end
       render json: {message: "Team corectly changed"}, status: 200
     end
   end
